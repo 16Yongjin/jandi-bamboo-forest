@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
-    const url = 'https://wh.jandi.com/connect-api/webhook/13626446/37772e7a1a35f18c2a8c8962fff266c6';
+    const url = 'https://wh.jandi.com/connect-api/webhook/13626446/1ed90c9a9317f164dee5319d92b2d69e';
     const headers = {
         'Accept': 'application/vnd.tosslab.jandi-v2+json',
         'Content-Type': 'application/json'

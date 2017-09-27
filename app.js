@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const request = require('request');
 const path = require('path');
+const moment = require('moment');
 
 
 const port = process.env.PORT || 3000;
@@ -30,7 +31,7 @@ app.post('/', (req, res) => {
     };
 
     const body = {
-        "body": "#애딕트대숲_${count}번째 제보",
+        "body": `#애딕트대숲_${count}번째 제보`,
         "connectColor": "#8CC941",
         "connectInfo": [{
             "title": req.body.chat

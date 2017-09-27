@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const request = require('request');
 const path = require('path');
 
+
 const port = process.env.PORT || 3000;
 
 const app = express();
@@ -18,6 +19,10 @@ app.get('/', (req, res) => {
 })
 
 app.post('/', (req, res) => {
+    if (!isNowBetweenTime('10:00', '22:00') ) {
+        return res.send('10:00 ~ 22:00에만 사용가능합니다.');
+    }
+
     const url = 'https://wh.jandi.com/connect-api/webhook/13626446/1ed90c9a9317f164dee5319d92b2d69e';
     const headers = {
         'Accept': 'application/vnd.tosslab.jandi-v2+json',
@@ -25,10 +30,10 @@ app.post('/', (req, res) => {
     };
 
     const body = {
-        "body": "Add:ICT 대나무숲",
+        "body": "대나무숲",
         "connectColor": "#FAC11B",
         "connectInfo": [{
-            "title": `#애딕트숲_${count}번째 제보`,
+            "title": `#애딕트대숲_${count}번째 제보`,
             "description" : req.body.chat
         }]
     };
@@ -70,3 +75,15 @@ app.post('/setCount', (req, res) => {
 app.listen(port, () => {
     console.log(`Server is up on port ${port}`);
 });
+
+
+function isNowBetweenTime(startTime, endTime){
+    // Creating moment objects for the current day at the given time
+    var startMom = moment(startTime, 'HH:mm');
+    var endMom   = moment(endTime, 'HH:mm');
+    if ( startMom.isAfter(endMom) ){
+      endMom.add(1, 'd');
+    }
+    return moment().isBetween(startMom, endMom);
+  }
+  

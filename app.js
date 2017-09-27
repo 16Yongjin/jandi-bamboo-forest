@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 
 app.post('/', (req, res) => {
     if (!isNowBetweenTime('10:00', '22:00') ) {
-        return res.send('10:00 ~ 22:00에만 사용가능합니다.');
+        return res.status(400).send('10:00 ~ 22:00에만 사용가능합니다.');
     }
 
     const url = 'https://wh.jandi.com/connect-api/webhook/13626446/1ed90c9a9317f164dee5319d92b2d69e';
@@ -30,11 +30,10 @@ app.post('/', (req, res) => {
     };
 
     const body = {
-        "body": "대나무숲",
-        "connectColor": "#FAC11B",
+        "body": "#애딕트대숲_${count}번째 제보",
+        "connectColor": "#8CC941",
         "connectInfo": [{
-            "title": `#애딕트대숲_${count}번째 제보`,
-            "description" : req.body.chat
+            "title": req.body.chat
         }]
     };
     

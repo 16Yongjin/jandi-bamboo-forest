@@ -26,7 +26,7 @@
                                 <input class="form-control" placeholder="익명으로" type="text" v-model="chat">
                             </p>
                             <span class="input-group-btn">
-                            <button class="btn btn-default" @click.prevent="send">보내기</button>
+                            <button class="btn btn-default" :disable="disableBtn" @click.prevent="send">보내기</button>
                             </span>
                         </form>
                     </div>
@@ -41,16 +41,20 @@
         var app = new Vue({
             el: '#app',
             data: {
-                chat: ''
+                chat: '',
+                disableBtn: false
             },
             methods: {
                 send: function () {
+                    this.disableBtn = true;
                     this.$http.post('/', {chat: this.chat}).then(function (response) {
                         alert('보냈어요.');
                         this.chat = '';
+                        this.disableBtn = false;
                     }, function (response) {
                         // error callback
                         alert('에러!\n' + response.body.message);
+                        this.disableBtn = false;                        
                     })
                 }
             }
